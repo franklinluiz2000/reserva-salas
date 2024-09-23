@@ -1,28 +1,41 @@
-version: '3'
+version: '3.9'
+
+networks:
+  salas-network:
+    driver: bridge
+
+
 services:
   web:
     build:
       context: .
       dockerfile: Dockerfile
-    image: reserva-salas
+    image: frankstark/reserva-salas
     container_name: reserva-salas
     ports:
       - 8080:8080
     volumes:
-      - /home/aluno/reserva-salas/dados:/app/dados
+      - ./dados:/app/dados
+    networks:
+      - salas-network
 
   prometheus:
     image: prom/prometheus
     restart: always
+    container_name: salas-prometheus
     volumes:
       - ./prometheus:/etc/prometheus/
       - ./prometheus/data:/prometheus
     ports:
       - 9090:9090
+    networks:
+      - salas-network
+    
 
   grafana:
     image: grafana/grafana
     user: "1001:1001"
+    container_name: salas-grafana
     environment:
       GF_INSTALL_PLUGINS: 'grafana-clock-panel,grafana-simple-json-datasource'
       GF_SECURITY_ADMIN_USER: 'admin'
@@ -32,5 +45,7 @@ services:
       - ./grafana/data:/var/lib/grafana
     ports:
       - 3000:3000
+    networks:
+      - salas-network
     depends_on:
       - prometheus

@@ -2,6 +2,10 @@ global:
   scrape_interval: 15s
 
 scrape_configs:
-  - job_name: 'sistema-de-reserva-de-salas'
+  - job_name: 'salas-prometheus'
     static_configs:
-      - targets: ['192.168.98.10:8080']
+      - targets: ['localhost:9090']
+
+  - job_name: 'reserva-salas'
+    static_configs:
+      - targets: ['reserva-salas:8080']
