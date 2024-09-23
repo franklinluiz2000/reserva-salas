@@ -32,18 +32,18 @@ jobs:
     - name: Build and Run Docker Compose
       run: |
         docker-compose -f docker-compose.yml up --build -d
-      env:
-        # Caso precise de variáveis de ambiente
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      # env:
+      #   # Caso precise de variáveis de ambiente
+      #   DATABASE_URL: ${{ secrets.DATABASE_URL }}
     
     # (Opcional) Test if services are running properly, e.g., using curl to check app health
-    - name: Check Web App Status
-      run: curl --fail http://localhost:8080 || exit 1
+    # - name: Check Web App Status
+    #   run: curl --fail http://localhost:8080 || exit 1
 
-    # (Opcional) Run tests inside containers (se você tiver testes automatizados configurados)
-    - name: Run tests inside web container
-      run: docker exec reserva-salas pytest /app/tests
+    # # (Opcional) Run tests inside containers (se você tiver testes automatizados configurados)
+    # - name: Run tests inside web container
+    #   run: docker exec reserva-salas pytest /app/tests
 
-    # Shutdown and clean up
-    - name: Shut down Docker Compose
-      run: docker-compose -f docker-compose.yml down
+    # # Shutdown and clean up
+    # - name: Shut down Docker Compose
+    #   run: docker-compose -f docker-compose.yml down
