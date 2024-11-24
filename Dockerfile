@@ -11,8 +11,7 @@ WORKDIR /large-app
 COPY . /large-app
 
 # Configurar o módulo Go e compilar o binário
-RUN go mod init example.com/m/v2 && \
-    go build -o reserva-salas
+RUN go build -o reserva-salas
 
 # Etapa 2: Runtime
 FROM alpine:3.18
