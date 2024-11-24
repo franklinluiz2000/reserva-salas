@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  reserva-salas:
+    image: frankstark/reserva-salas:v2
+    container_name: salas
+    ports:
+      - "8080:8080"
+    volumes:
+      - reserva_vol:/small-app/dados
+    restart: unless-stopped
+
+volumes:
+  reserva_vol:
+    driver: local
